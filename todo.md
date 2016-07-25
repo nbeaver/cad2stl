@@ -1,0 +1,1 @@
+[ ] Cross-platform method to find directory where `FreeCAD.so` or `FreeCAD.dll`.
