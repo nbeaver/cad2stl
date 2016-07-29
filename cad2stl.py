@@ -21,8 +21,24 @@ if os.path.isabs(out_path):
         sys.stderr.write("Error: output directory does not exist: {}\n".format(out_dir))
         sys.exit(1)
 
-sys.path.append('/usr/lib/freecad/lib')
-import FreeCAD, Part
+
+try:
+    import FreeCAD
+except ImportError:
+    if os.name == 'posix':
+        libpath = '/usr/lib/freecad/lib'
+        if os.path.isdir(libpath):
+            sys.path.append(libpath)
+        else:
+            sys.stderr.write("Cannot find path to FreeCad.so")
+            sys.exit(1)
+    elif os.name == 'nt':
+            sys.stderr.write("Cannot find path to FreeCad.pyd\n")
+            sys.stderr.write("Add FreeCAD 'lib' folder to PYTHONPATH\n")
+            sys.stderr.write("Example directory: C:\\Program Files\\FreeCAD 0.16\\lib\n")
+            sys.exit(1)
+
+import Part
 
 in_part = Part.read(in_path)
 in_part.exportStl(out_path)
