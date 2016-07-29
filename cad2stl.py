@@ -15,6 +15,12 @@ if not os.path.isfile(in_path):
     sys.stderr.write("Error: input is not a file: {}\n".format(in_path))
     sys.exit(1)
 
+if os.path.isabs(out_path):
+    out_dir = os.path.dirname(out_path)
+    if not os.path.isdir(out_dir):
+        sys.stderr.write("Error: output directory does not exist: {}\n".format(out_dir))
+        sys.exit(1)
+
 sys.path.append('/usr/lib/freecad/lib')
 import FreeCAD, Part
 
