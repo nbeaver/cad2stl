@@ -10,3 +10,7 @@ out.stl :
 
 readme.html : readme.rst
 	rst2html readme.rst readme.html
+
+clean :
+	rm -f readme.html out.stl
+	rm -rf __pycache__/
