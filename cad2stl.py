@@ -2,25 +2,44 @@
 
 import sys
 import os
+import argparse
 
-required_args = 2
-if len(sys.argv) == required_args + 1:
-    in_path  = sys.argv[1]
-    out_path = sys.argv[2]
-else:
-    sys.stderr.write("Usage: {} /path/to/input /path/to/output\n".format(sys.argv[0]))
+parser = argparse.ArgumentParser(
+    description='convert CAD formats to STL format'
+)
+
+parser.add_argument(
+    'in_file',
+    help='path to CAD file input'
+)
+parser.add_argument(
+    'out_file',
+    help='path to STL file output'
+)
+parser.add_argument(
+    '-l',
+    '--lib',
+    help='path to FreeCAD lib directory',
+)
+
+args = parser.parse_args()
+
+if not os.path.isfile(args.in_file):
+    sys.stderr.write("Error: input is not a file: {}\n".format(args.in_file))
     sys.exit(1)
 
-if not os.path.isfile(in_path):
-    sys.stderr.write("Error: input is not a file: {}\n".format(in_path))
-    sys.exit(1)
-
-if os.path.isabs(out_path):
-    out_dir = os.path.dirname(out_path)
+if os.path.isabs(args.out_file):
+    out_dir = os.path.dirname(args.out_file)
     if not os.path.isdir(out_dir):
         sys.stderr.write("Error: output directory does not exist: {}\n".format(out_dir))
         sys.exit(1)
 
+if args.lib:
+    if os.path.isdir(args.lib):
+        sys.path.append(args.lib)
+    else:
+        sys.stderr.write("Error: FreeCAD lib directory does not exist: {}\n".format(args.lib))
+        sys.exit(1)
 
 try:
     import FreeCAD
@@ -37,8 +56,12 @@ except ImportError:
             sys.stderr.write("Add FreeCAD 'lib' folder to PYTHONPATH\n")
             sys.stderr.write("Example directory: C:\\Program Files\\FreeCAD 0.16\\lib\n")
             sys.exit(1)
+    else:
+        sys.stderr.write("Error: Unknown OS: {}".format(os.name))
+        sys.exit(1)
 
+import FreeCAD
 import Part
 
-in_part = Part.read(in_path)
-in_part.exportStl(out_path)
+in_part = Part.read(args.in_file)
+in_part.exportStl(args.out_file)
