@@ -23,9 +23,15 @@ def convert(in_file, out_file, lib_dir = None):
         import FreeCAD
     except ImportError:
         if os.name == 'posix':
-            libpath = '/usr/lib/freecad/lib'
-            if os.path.isdir(libpath):
-                sys.path.append(libpath)
+            possible_lib_dirs = [
+                '/usr/lib/freecad/lib', # Linux
+                '/usr/lib64/freecad/lib', # Linux
+                '/Applications/FreeCAD.app/Contents/Frameworks/lib', # Mac OS X
+            ]
+            for lib_dir in possible_lib_dirs:
+                if os.path.isdir(lib_dir):
+                    sys.path.append(lib_dir)
+                    break
             else:
                 sys.stderr.write("Cannot find path to FreeCad.so\n")
                 raise
