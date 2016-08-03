@@ -41,8 +41,7 @@ def convert(in_file, out_file, lib_dir = None):
     in_part = Part.read(in_file)
     in_part.exportStl(out_file)
 
-if __name__ == '__main__':
-
+def main():
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -66,3 +65,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     convert(args.in_file, args.out_file, args.lib)
+
+if __name__ == '__main__':
+    main()
