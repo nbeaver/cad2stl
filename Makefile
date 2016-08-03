@@ -1,4 +1,6 @@
-all : readme.html
+default : readme.html out.stl
+
+out.stl :
 	./cad2stl.py in.igs out.stl
 	./cad2stl.py --lib /usr/lib/freecad/lib/ in.igs out.stl
 	./cad2stl.py -l /usr/lib/freecad/lib/ in.igs out.stl
