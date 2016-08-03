@@ -1,6 +1,7 @@
 #! /usr/bin/env python2
 
-def convert(in_file, out_file, lib_dir = None):
+
+def convert(in_file, out_file, lib_dir=None):
     """Converts to STL via the FreeCAD library."""
 
     import sys
@@ -12,22 +13,26 @@ def convert(in_file, out_file, lib_dir = None):
     if os.path.isabs(out_file):
         out_dir = os.path.dirname(out_file)
         if not os.path.isdir(out_dir):
-            raise IOError("output directory does not exist: {}".format(out_dir))
+            raise IOError(
+                "output directory does not exist: {}".format(out_dir)
+            )
 
     if lib_dir:
         if os.path.isdir(lib_dir):
             sys.path.append(lib_dir)
         else:
-            raise IOError("FreeCAD lib directory does not exist: {}".format(lib_dir))
+            raise IOError(
+                "FreeCAD lib directory does not exist: {}".format(lib_dir)
+            )
 
     try:
         import FreeCAD
     except ImportError:
         if os.name == 'posix':
             possible_lib_dirs = [
-                '/usr/lib/freecad/lib', # Linux
-                '/usr/lib64/freecad/lib', # Linux
-                '/Applications/FreeCAD.app/Contents/Frameworks/lib', # Mac OS X
+                '/usr/lib/freecad/lib',    # Linux
+                '/usr/lib64/freecad/lib',  # Linux
+                '/Applications/FreeCAD.app/Contents/Frameworks/lib',  # OS X
             ]
             for lib_dir in possible_lib_dirs:
                 if os.path.isdir(lib_dir):
@@ -42,14 +47,16 @@ def convert(in_file, out_file, lib_dir = None):
         else:
             raise NotImplementedError("Unknown OS: {}".format(os.name))
 
-    import FreeCAD # no harm in re-importing
+    import FreeCAD  # no harm in re-importing
     import Part
 
     in_part = Part.read(in_file)
     in_part.exportStl(out_file)
 
+
 def main():
     """Parse commandline arguments."""
+
     import argparse
 
     parser = argparse.ArgumentParser(
