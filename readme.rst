@@ -1,4 +1,4 @@
-The core of the code is just::
+The core of the code is just this::
 
     import FreeCAD, Part
 
