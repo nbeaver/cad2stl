@@ -2,27 +2,6 @@
 
 import sys
 import os
-import argparse
-
-parser = argparse.ArgumentParser(
-    description='convert CAD formats to STL format'
-)
-
-parser.add_argument(
-    'in_file',
-    help='path to CAD file input'
-)
-parser.add_argument(
-    'out_file',
-    help='path to STL file output'
-)
-parser.add_argument(
-    '-l',
-    '--lib',
-    help='path to FreeCAD lib directory',
-)
-
-args = parser.parse_args()
 
 def convert(in_file, out_file, lib_dir = None):
 
@@ -68,4 +47,28 @@ def convert(in_file, out_file, lib_dir = None):
     in_part = Part.read(args.in_file)
     in_part.exportStl(args.out_file)
 
-convert(args.in_file, args.out_file, args.lib)
+if __name__ == '__main__':
+
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='convert CAD formats to STL format'
+    )
+
+    parser.add_argument(
+        'in_file',
+        help='path to CAD file input'
+    )
+    parser.add_argument(
+        'out_file',
+        help='path to STL file output'
+    )
+    parser.add_argument(
+        '-l',
+        '--lib',
+        help='path to FreeCAD lib directory',
+    )
+
+    args = parser.parse_args()
+
+    convert(args.in_file, args.out_file, args.lib)
