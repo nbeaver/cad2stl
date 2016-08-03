@@ -1,6 +1,7 @@
 #! /usr/bin/env python2
 
 def convert(in_file, out_file, lib_dir = None):
+    """Converts to STL via the FreeCAD library."""
 
     import sys
     import os
@@ -48,6 +49,7 @@ def convert(in_file, out_file, lib_dir = None):
     in_part.exportStl(out_file)
 
 def main():
+    """Parse commandline arguments."""
     import argparse
 
     parser = argparse.ArgumentParser(
