@@ -38,8 +38,8 @@ def convert(in_file, out_file, lib_dir = None):
     import FreeCAD # no harm in re-importing
     import Part
 
-    in_part = Part.read(args.in_file)
-    in_part.exportStl(args.out_file)
+    in_part = Part.read(in_file)
+    in_part.exportStl(out_file)
 
 if __name__ == '__main__':
 
