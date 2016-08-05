@@ -37,3 +37,9 @@ or  ``/usr/lib/freecad/lib`` (on Linux).
 
 .. image:: freecad-nt.png
    :alt: Select components to install: Add to PYTHONPATH Description Add the FreeCAD installation directory to PYTHONPATH in the registry.
+
+-------------
+Related links
+-------------
+
+- http://jordan.husney.com/archives/2013/07/converting_cad_files_to_stl_us.php
