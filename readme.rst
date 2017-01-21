@@ -43,3 +43,11 @@ Related links
 -------------
 
 - http://jordan.husney.com/archives/2013/07/converting_cad_files_to_stl_us.php
+
+-------
+License
+-------
+
+This project is licensed under the terms of the `MIT license`_.
+
+.. _MIT license: LICENSE.txt
